@@ -376,42 +376,49 @@ function loadSelectedTrain() {
   if (!currentLineData) return;
   
   const trainIndex = document.getElementById('trainSelect').value || 0;
-  const trains = currentLineData._activeTrains || [];
-  const train = trains[trainIndex];
+  
+  // Obtenim l'array de trens del sentit actiu o de la llista general
+  let trains = [];
+  if (currentLineData.directions) {
+    trains = currentLineData.directions[currentDirection]?.trains || [];
+  } else {
+    trains = currentLineData.trains || [];
+  }
 
+  const train = trains[trainIndex];
   if (!train) return;
 
-  // Validació de seguretat per a la ruta
   const route = Array.isArray(train.route) ? train.route : [];
   
   document.getElementById('lineTitle').textContent = `Línia ${currentLineData.line || ''} - ${train.type || ''}`;
   document.getElementById('trainCode').textContent = `Tren ${train.id || ''}`;
   
-  if (route.length > 0) {
-    const origin = route[0];
-    const destination = route[route.length - 1];
+  // Cerquem la primera i darrera estació ON EL TREN REALMENT S'ATURA
+  const activeStops = route.filter(stop => stop.stops && stop.time !== null);
+  
+  if (activeStops.length > 0) {
+    const origin = activeStops[0];
+    const destination = activeStops[activeStops.length - 1];
     
-    document.getElementById('routeTitle').textContent = `${origin?.station || 'Origen'} ➔ ${destination?.station || 'Destí'}`;
-    document.getElementById('departureTime').textContent = origin?.time ? `${origin.time} h` : '--:--';
-    document.getElementById('arrivalTime').textContent = destination?.time ? `${destination.time} h` : '--:--';
+    document.getElementById('routeTitle').textContent = `${origin.station} ➔ ${destination.station}`;
+    document.getElementById('departureTime').textContent = `${origin.time} h`;
+    document.getElementById('arrivalTime').textContent = `${destination.time} h`;
 
-    if (origin?.time && destination?.time) {
-      const startMin = parseTimeToMinutes(origin.time);
-      const endMin = parseTimeToMinutes(destination.time);
-      
-      if (startMin !== null && endMin !== null) {
-        const diff = endMin - startMin;
-        const h = Math.floor(diff / 60);
-        const m = diff % 60;
-        document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
-      } else {
-        document.getElementById('totalDuration').textContent = '--';
-      }
+    // Càlcul de la durada total del trajecte
+    const startMin = parseTimeToMinutes(origin.time);
+    const endMin = parseTimeToMinutes(destination.time);
+    
+    if (startMin !== null && endMin !== null) {
+      let diff = endMin - startMin;
+      if (diff < 0) diff += 1440; // Ajust per si el trajecte passa de mitjanit
+      const h = Math.floor(diff / 60);
+      const m = diff % 60;
+      document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
     } else {
       document.getElementById('totalDuration').textContent = '--';
     }
   } else {
-    document.getElementById('routeTitle').textContent = 'Sense informació de recorregut';
+    document.getElementById('routeTitle').textContent = 'Sense parades comercials';
     document.getElementById('departureTime').textContent = '--:--';
     document.getElementById('arrivalTime').textContent = '--:--';
     document.getElementById('totalDuration').textContent = '--';
