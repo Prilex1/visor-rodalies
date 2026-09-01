@@ -37,6 +37,43 @@
       width: 100%;
     }
 
+    /* Selector de Mode (Per Línia / Per Estació) */
+    .mode-selector {
+      display: flex;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .mode-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: white;
+      color: var(--text);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Seccions de contingut */
+    .view-section {
+      display: none;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
     /* Selector de Línies */
     .line-selector {
       display: flex;
@@ -68,7 +105,7 @@
       border-color: #93806B;
     }
 
-    /* Selector de Sentit (Anada / Tornada) */
+    /* Selector de Sentit */
     .dir-selector {
       display: flex;
       gap: 8px;
@@ -156,7 +193,7 @@
       gap: 10px;
     }
 
-    .filter-box select {
+    .filter-box select, .filter-box input {
       flex: 1;
       padding: 10px;
       border-radius: 6px;
@@ -191,28 +228,14 @@
       z-index: 1;
     }
 
-    .line-segment-top {
-      top: 0;
-      height: 50%;
-    }
-
-    .line-segment-bottom {
-      top: 50%;
-      bottom: 0;
-    }
+    .line-segment-top { top: 0; height: 50%; }
+    .line-segment-bottom { top: 50%; bottom: 0; }
 
     .timeline-item:first-child .line-segment-top,
-    .timeline-item:last-child .line-segment-bottom {
-      display: none;
-    }
+    .timeline-item:last-child .line-segment-bottom { display: none; }
 
-    .line-active {
-      background: var(--line-color);
-    }
-
-    .line-disabled {
-      background: var(--line-inactive);
-    }
+    .line-active { background: var(--line-color); }
+    .line-disabled { background: var(--line-inactive); }
 
     .time {
       width: 65px;
@@ -244,14 +267,8 @@
       margin-right: 22px;
     }
 
-    .station-info {
-      flex: 1;
-    }
-
-    .station-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
+    .station-info { flex: 1; }
+    .station-name { font-size: 0.95rem; font-weight: 600; }
 
     .timeline-item.no-stop .station-name {
       color: var(--text-muted);
@@ -269,17 +286,76 @@
       margin-left: 6px;
     }
 
-    .duration-badge {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 3px;
+    .duration-badge { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
+    .no-stop-text { font-size: 0.75rem; color: var(--text-muted); font-style: italic; margin-top: 2px; }
+
+    /* Estils de la Cerca per Estació */
+    .station-search-panel {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
     }
 
-    .no-stop-text {
+    .search-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .upcoming-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .upcoming-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 6px solid var(--line-inactive);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .upcoming-time-box {
+      text-align: right;
+    }
+
+    .departure-clock {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .countdown-badge {
+      display: inline-block;
+      background: #edf2f7;
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    .countdown-badge.imminent {
+      background: #fed7d7;
+      color: #9b2c2c;
+    }
+
+    .line-tag {
       font-size: 0.75rem;
-      color: var(--text-muted);
-      font-style: italic;
-      margin-top: 2px;
+      font-weight: bold;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 4px;
     }
 
     .info-footer {
@@ -294,56 +370,81 @@
 <body>
 
 <div class="container">
-  <!-- Selector de Línia -->
-  <div class="line-selector">
-    <button class="line-btn active" data-line="R16" onclick="switchLine('R16')">Línia R16</button>
-    <button class="line-btn" data-line="R15" onclick="switchLine('R15')">Línia R15</button>
+  <!-- Selector Mode Visualització -->
+  <div class="mode-selector">
+    <button class="mode-btn active" id="btnModeStation" onclick="switchMode('station')">🚉 Cerca per Estació</button>
+    <button class="mode-btn" id="btnModeLine" onclick="switchMode('line')">🗺️ Consulta per Línia</button>
   </div>
 
-  <!-- Selector de Sentit -->
-  <div class="dir-selector" id="dirSelector">
-    <button class="dir-btn active" data-dir="outbound" id="btnOutbound" onclick="setDirection('outbound')">Anada</button>
-    <button class="dir-btn" data-dir="inbound" id="btnInbound" onclick="setDirection('inbound')">Tornada</button>
+  <!-- ================= VISTA PER ESTACIÓ ================= -->
+  <div class="view-section active" id="viewStation">
+    <div class="station-search-panel">
+      <label style="font-size: 0.85rem; font-weight: bold; color: var(--text-muted); text-transform: uppercase;">Selecciona l'estació:</label>
+      <div class="search-row">
+        <select id="stationSelect" onchange="searchUpcomingTrains()">
+          <!-- Es carrega dinàmicament -->
+        </select>
+        <input type="time" id="timeInput" onchange="searchUpcomingTrains()" style="max-width: 120px;">
+      </div>
+    </div>
+
+    <div class="upcoming-list" id="upcomingList">
+      <!-- Llista de trens propers -->
+    </div>
   </div>
 
-  <div class="train-card">
-    <div class="train-header" id="trainHeader">
-      <div class="train-title">
-        <h1 id="lineTitle">Carregant...</h1>
-        <p id="routeTitle">-- ➔ --</p>
-      </div>
-      <span class="train-badge" id="trainCode">--</span>
+  <!-- ================= VISTA PER LÍNvector ================= -->
+  <div class="view-section" id="viewLine">
+    <div class="line-selector">
+      <button class="line-btn active" data-line="R16" onclick="switchLine('R16')">Línia R16</button>
+      <button class="line-btn" data-line="R15" onclick="switchLine('R15')">Línia R15</button>
     </div>
 
-    <div class="train-meta">
-      <div class="meta-item">
-        <div class="label">Sortida</div>
-        <div class="value" id="departureTime">--:--</div>
-      </div>
-      <div class="meta-item">
-        <div class="label">Arribada</div>
-        <div class="value" id="arrivalTime">--:--</div>
-      </div>
-      <div class="meta-item">
-        <div class="label">Durada</div>
-        <div class="value" id="totalDuration">--</div>
-      </div>
+    <div class="dir-selector" id="dirSelector">
+      <button class="dir-btn active" data-dir="outbound" id="btnOutbound" onclick="setDirection('outbound')">Anada</button>
+      <button class="dir-btn" data-dir="inbound" id="btnInbound" onclick="setDirection('inbound')">Tornada</button>
     </div>
 
-    <div class="filter-box">
-      <select id="trainSelect" onchange="loadSelectedTrain()">
-      </select>
-    </div>
+    <div class="train-card">
+      <div class="train-header" id="trainHeader">
+        <div class="train-title">
+          <h1 id="lineTitle">Carregant...</h1>
+          <p id="routeTitle">-- ➔ --</p>
+        </div>
+        <span class="train-badge" id="trainCode">--</span>
+      </div>
 
-    <div class="timeline" id="timeline"></div>
+      <div class="train-meta">
+        <div class="meta-item">
+          <div class="label">Sortida</div>
+          <div class="value" id="departureTime">--:--</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Arribada</div>
+          <div class="value" id="arrivalTime">--:--</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Durada</div>
+          <div class="value" id="totalDuration">--</div>
+        </div>
+      </div>
 
-    <div class="info-footer">
-      ℹ️ Dades carregades dinàmicament des del fitxer JSON de la línia.
+      <div class="filter-box">
+        <select id="trainSelect" onchange="loadSelectedTrain()">
+        </select>
+      </div>
+
+      <div class="timeline" id="timeline"></div>
+
+      <div class="info-footer">
+        ℹ️ Dades carregades dinàmicament des del fitxer JSON de la línia.
+      </div>
     </div>
   </div>
 </div>
 
 <script>
+  let linesData = {};
   let currentLineData = null;
   let currentDirection = "outbound";
 
@@ -353,29 +454,195 @@
     return h * 60 + m;
   }
 
+  // Inicialitza l'hora actual a l'input HH:MM
+  function setDefaultTime() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mm = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('timeInput').value = `${hh}:${mm}`;
+  }
+
+  // Canvi entre la cerca per estació i la vista per línia
+  function switchMode(mode) {
+    document.getElementById('btnModeStation').classList.toggle('active', mode === 'station');
+    document.getElementById('btnModeLine').classList.toggle('active', mode === 'line');
+    document.getElementById('viewStation').classList.toggle('active', mode === 'station');
+    document.getElementById('viewLine').classList.toggle('active', mode === 'line');
+  }
+
+  // Carrega les dades inicials de totes dues línies
+  async function initApp() {
+    setDefaultTime();
+    
+    try {
+      const [resR16, resR15] = await Promise.all([
+        fetch('./R16.json'),
+        fetch('./R15.json')
+      ]);
+
+      if (resR16.ok) linesData["R16"] = await resR16.json();
+      if (resR15.ok) linesData["R15"] = await resR15.json();
+
+      populateAllStations();
+      switchLine("R16");
+    } catch (err) {
+      console.error("Error carregant les dades inicials:", err);
+    }
+  }
+
+  // Opleix el selector amb totes les estacions úniques disponibles
+  function populateAllStations() {
+    const stationSet = new Set();
+
+    Object.values(linesData).forEach(line => {
+      const dirs = line.directions ? [line.directions.outbound, line.directions.inbound] : [{ trains: line.trains }];
+      dirs.forEach(dir => {
+        if (!dir || !dir.trains) return;
+        dir.trains.forEach(train => {
+          if (Array.isArray(train.route)) {
+            train.route.forEach(stop => {
+              if (stop.station) stationSet.add(stop.station);
+            });
+          }
+        });
+      });
+    });
+
+    const stationSelect = document.getElementById('stationSelect');
+    stationSelect.innerHTML = "";
+    
+    Array.from(stationSet).sort().forEach(station => {
+      const opt = document.createElement('option');
+      opt.value = station;
+      opt.textContent = station;
+      stationSelect.appendChild(opt);
+    });
+
+    // Selecciona Tortosa per defecte si existeix
+    if (stationSet.has("Tortosa")) stationSelect.value = "Tortosa";
+    
+    searchUpcomingTrains();
+  }
+
+  // Cerca i calcula les pròximes circulacions per a l'estació seleccionada
+  function searchUpcomingTrains() {
+    const selectedStation = document.getElementById('stationSelect').value;
+    const selectedTime = document.getElementById('timeInput').value;
+    const currentMinutes = parseTimeToMinutes(selectedTime);
+
+    if (!selectedStation || currentMinutes === null) return;
+
+    let upcoming = [];
+
+    Object.values(linesData).forEach(line => {
+      const dirs = line.directions ? [line.directions.outbound, line.directions.inbound] : [{ trains: line.trains }];
+      
+      dirs.forEach(dir => {
+        if (!dir || !dir.trains) return;
+        
+        dir.trains.forEach(train => {
+          const route = Array.isArray(train.route) ? train.route : [];
+          const stopIndex = route.findIndex(s => s.station === selectedStation && s.stops && s.time);
+
+          if (stopIndex !== -1) {
+            const stopTimeMin = parseTimeToMinutes(route[stopIndex].time);
+            
+            // Filtrem trens des de l'hora seleccionada en endavant (fent marge de fins a mitjanit)
+            let diff = stopTimeMin - currentMinutes;
+            if (diff < 0) diff += 1440; // Per considerar trens de la matinada següent
+
+            // Agafem les circulacions que passen en les properes 12 hores
+            if (diff >= 0 && diff <= 720) {
+              const activeStops = route.filter(s => s.stops && s.time);
+              const origin = activeStops[0]?.station || 'Origen';
+              const destination = activeStops[activeStops.length - 1]?.station || 'Destí';
+
+              upcoming.push({
+                line: line.line,
+                lineColor: line.color,
+                trainId: train.id,
+                trainType: train.type,
+                time: route[stopIndex].time,
+                diffMinutes: diff,
+                origin: origin,
+                destination: destination,
+                isDestination: (destination === selectedStation)
+              });
+            }
+          }
+        });
+      });
+    });
+
+    // Ordenem per temps restant
+    upcoming.sort((a, b) => a.diffMinutes - b.diffMinutes);
+    renderUpcomingList(upcoming);
+  }
+
+  // Genera la llista visual de les pròximes eixides
+  function renderUpcomingList(upcoming) {
+    const listEl = document.getElementById('upcomingList');
+    listEl.innerHTML = "";
+
+    if (upcoming.length === 0) {
+      listEl.innerHTML = `
+        <div style="text-align: center; padding: 30px; color: var(--text-muted); background: white; border-radius: 10px; border: 1px solid var(--border);">
+          No s'han trobat més circulacions previstes per avui a partir d'aquesta hora.
+        </div>`;
+      return;
+    }
+
+    upcoming.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'upcoming-card';
+      card.style.borderLeftColor = item.lineColor;
+
+      let countdownText = "";
+      if (item.diffMinutes === 0) {
+        countdownText = "Imminent";
+      } else if (item.diffMinutes < 60) {
+        countdownText = `En ${item.diffMinutes} min`;
+      } else {
+        const h = Math.floor(item.diffMinutes / 60);
+        const m = item.diffMinutes % 60;
+        countdownText = `En ${h}h ${m}m`;
+      }
+
+      card.innerHTML = `
+        <div>
+          <span class="line-tag" style="background:${item.lineColor}">${item.line}</span>
+          <strong style="font-size: 1rem; display: block; margin-top: 2px;">
+            ${item.isDestination ? `Final de trajecte (${item.origin} ➔ ${item.destination})` : `Destí: ${item.destination}`}
+          </strong>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">
+            Tren ${item.trainId} · ${item.trainType} (Origen: ${item.origin})
+          </span>
+        </div>
+        <div class="upcoming-time-box">
+          <div class="departure-clock">${item.time} h</div>
+          <span class="countdown-badge ${item.diffMinutes <= 5 ? 'imminent' : ''}">${countdownText}</span>
+        </div>
+      `;
+
+      listEl.appendChild(card);
+    });
+  }
+
+  // --- LOGICA DE CONSULTA PER LÍNIA ---
+
   async function switchLine(lineKey) {
     document.querySelectorAll('.line-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.line === lineKey);
     });
 
-    try {
-      const response = await fetch(`./${lineKey}.json`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: No s'ha trobat el fitxer ${lineKey}.json`);
-      }
+    currentLineData = linesData[lineKey];
+    if (!currentLineData) return;
 
-      currentLineData = await response.json();
+    document.documentElement.style.setProperty('--line-color', currentLineData.color || '#A90034');
+    document.documentElement.style.setProperty('--line-light', currentLineData.lightColor || '#fbe6eb');
 
-      document.documentElement.style.setProperty('--line-color', currentLineData.color || '#A90034');
-      document.documentElement.style.setProperty('--line-light', currentLineData.lightColor || '#fbe6eb');
-
-      updateDirectionButtons();
-      updateTrainList();
-    } catch (error) {
-      console.error("Error carregant el JSON:", error);
-      alert(`Error en carregar ${lineKey}.json: ${error.message}`);
-    }
+    updateDirectionButtons();
+    updateTrainList();
   }
 
   function setDirection(dir) {
@@ -408,7 +675,7 @@
 
     if (trains.length === 0) {
       const opt = document.createElement('option');
-      opt.textContent = "No hi ha trens disponibles en aquest sentit";
+      opt.textContent = "No hi ha trens disponibles";
       trainSelect.appendChild(opt);
       renderEmptyState();
       return;
@@ -466,7 +733,7 @@
       
       if (startMin !== null && endMin !== null) {
         let diff = endMin - startMin;
-        if (diff < 0) diff += 1440; // Ajust per canvi de dia
+        if (diff < 0) diff += 1440;
         const h = Math.floor(diff / 60);
         const m = diff % 60;
         document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
@@ -539,8 +806,8 @@
     });
   }
 
-  // Inicialització
-  switchLine("R16");
+  // Execució inicial
+  initApp();
 </script>
 
 </body>
