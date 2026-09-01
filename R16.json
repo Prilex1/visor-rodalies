@@ -1,0 +1,30 @@
+{
+  "line": "R16",
+  "color": "#A90034",
+  "lightColor": "#fbe6eb",
+  "trains": [
+    {
+      "id": "18122",
+      "type": "Regional Exprés",
+      "route": [
+        { "station": "Tortosa", "time": "09:11", "stops": true, "transfer": null },
+        { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+        { "station": "L'Aldea - Amposta", "time": "09:23", "stops": true, "transfer": "[Intercity]" },
+        { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+        { "station": "L'Ampolla - Perelló - Deltebre", "time": "09:32", "stops": true, "transfer": null },
+        { "station": "L'Ametlla de Mar", "time": "09:42", "stops": true, "transfer": null },
+        { "station": "L'Hospitalet de l'Infant", "time": "09:53", "stops": true, "transfer": null },
+        { "station": "Cambrils", "time": "10:05", "stops": true, "transfer": null },
+        { "station": "Vila-seca", "time": "10:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+        { "station": "Tarragona", "time": "10:26", "stops": true, "transfer": "[R17/RT2]" },
+        { "station": "Altafulla - Tamarit", "time": "10:35", "stops": true, "transfer": null },
+        { "station": "Torredembarra", "time": "10:40", "stops": true, "transfer": null },
+        { "station": "Sant Vicenç de Calders", "time": "10:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+        { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+        { "station": "Barcelona - Sants", "time": "11:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+        { "station": "Barcelona - Passeig de Gràcia", "time": "11:44", "stops": true, "transfer": "[L2/L3/L4]" },
+        { "station": "Barcelona - Estació de França", "time": "11:54", "stops": true, "transfer": "[L4]" }
+      ]
+    }
+  ]
+}

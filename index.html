@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visor d'Horaris - Rodalies de Catalunya</title>
+  <style>
+    :root {
+      --line-color: #A90034;
+      --line-light: #fbe6eb;
+      --bg: #f4f6f8;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --text-muted: #7f8c8d;
+      --border: #e2e8f0;
+      --accent: #e67e22;
+      --line-inactive: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 650px;
+      width: 100%;
+    }
+
+    .line-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .line-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--border);
+      background: white;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .line-btn.active[data-line="R16"] {
+      background: #A90034;
+      color: white;
+      border-color: #A90034;
+    }
+
+    .line-btn.active[data-line="R15"] {
+      background: #93806B;
+      color: white;
+      border-color: #93806B;
+    }
+
+    .train-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .train-header {
+      background: var(--line-color);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+
+    .train-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .train-title h1 {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    .train-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 15px 20px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .meta-item .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .meta-item .value {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--text);
+      margin-top: 2px;
+    }
+
+    .filter-box {
+      padding: 15px 20px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+    }
+
+    .filter-box select {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .timeline {
+      padding: 25px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      padding-bottom: 28px;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .line-segment-top, .line-segment-bottom {
+      position: absolute;
+      left: 79px;
+      width: 4px;
+      z-index: 1;
+    }
+
+    .line-segment-top {
+      top: 0;
+      height: 50%;
+    }
+
+    .line-segment-bottom {
+      top: 50%;
+      bottom: 0;
+    }
+
+    .timeline-item:first-child .line-segment-top,
+    .timeline-item:last-child .line-segment-bottom {
+      display: none;
+    }
+
+    .line-active {
+      background: var(--line-color);
+    }
+
+    .line-disabled {
+      background: var(--line-inactive);
+    }
+
+    .time {
+      width: 65px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      color: var(--text);
+      text-align: right;
+      padding-right: 15px;
+    }
+
+    .node {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid var(--line-color);
+      margin-right: 20px;
+      margin-top: 2px;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .timeline-item.no-stop .node {
+      border-color: var(--line-inactive);
+      background: #f1f5f9;
+      width: 10px;
+      height: 10px;
+      margin-left: 2px;
+      margin-right: 22px;
+    }
+
+    .station-info {
+      flex: 1;
+    }
+
+    .station-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .timeline-item.no-stop .station-name {
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+
+    .transfer-badge {
+      display: inline-block;
+      background: var(--line-light);
+      color: var(--line-color);
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+
+    .duration-badge {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .no-stop-text {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 2px;
+    }
+
+    .info-footer {
+      padding: 15px 20px;
+      background: #fff8e6;
+      border-top: 1px solid #ffeeba;
+      font-size: 0.85rem;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="line-selector">
+    <button class="line-btn active" data-line="R16" onclick="switchLine('R16')">Línia R16</button>
+    <button class="line-btn" data-line="R15" onclick="switchLine('R15')">Línia R15</button>
+  </div>
+
+  <div class="train-card">
+    <div class="train-header" id="trainHeader">
+      <div class="train-title">
+        <h1 id="lineTitle">Carregant...</h1>
+        <p id="routeTitle">-- ➔ --</p>
+      </div>
+      <span class="train-badge" id="trainCode">--</span>
+    </div>
+
+    <div class="train-meta">
+      <div class="meta-item">
+        <div class="label">Sortida</div>
+        <div class="value" id="departureTime">--:--</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Arribada</div>
+        <div class="value" id="arrivalTime">--:--</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Durada</div>
+        <div class="value" id="totalDuration">--</div>
+      </div>
+    </div>
+
+    <div class="filter-box">
+      <select id="trainSelect" onchange="loadSelectedTrain()">
+      </select>
+    </div>
+
+    <div class="timeline" id="timeline"></div>
+
+    <div class="info-footer">
+      ℹ️ Dades carregades des del fitxer .json de la línia.
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentLineData = null;
+
+  function parseTimeToMinutes(timeStr) {
+    if (!timeStr) return null;
+    const [h, m] = timeStr.split(':').map(Number);
+    return h * 60 + m;
+  }
+
+  async function switchLine(lineKey) {
+    document.querySelectorAll('.line-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.line === lineKey);
+    });
+
+    try {
+      // Càrrega del fitxer .json corresponent
+      const response = await fetch(`./${lineKey}.json`);
+      currentLineData = await response.json();
+
+      document.documentElement.style.setProperty('--line-color', currentLineData.color);
+      document.documentElement.style.setProperty('--line-light', currentLineData.lightColor);
+
+      const trainSelect = document.getElementById('trainSelect');
+      trainSelect.innerHTML = "";
+      currentLineData.trains.forEach((train, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = `Tren ${train.id} - ${train.type} (${train.route[0].station} ➔ ${train.route[train.route.length - 1].station})`;
+        trainSelect.appendChild(opt);
+      });
+
+      loadSelectedTrain();
+    } catch (error) {
+      console.error("Error carregant el fitxer JSON:", error);
+      alert(`No s'ha pogut carregar el fitxer ${lineKey}.json`);
+    }
+  }
+
+  function loadSelectedTrain() {
+    if (!currentLineData) return;
+    
+    const trainIndex = document.getElementById('trainSelect').value || 0;
+    const train = currentLineData.trains[trainIndex];
+
+    document.getElementById('lineTitle').textContent = `Línia ${currentLineData.line} - ${train.type}`;
+    document.getElementById('trainCode').textContent = `Tren ${train.id}`;
+    
+    const origin = train.route[0];
+    const destination = train.route[train.route.length - 1];
+    
+    document.getElementById('routeTitle').textContent = `${origin.station} ➔ ${destination.station}`;
+    document.getElementById('departureTime').textContent = `${origin.time} h`;
+    document.getElementById('arrivalTime').textContent = `${destination.time} h`;
+
+    const startMin = parseTimeToMinutes(origin.time);
+    const endMin = parseTimeToMinutes(destination.time);
+    const diff = endMin - startMin;
+    const h = Math.floor(diff / 60);
+    const m = diff % 60;
+    document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
+
+    renderTimeline(train.route);
+  }
+
+  function renderTimeline(route) {
+    const timelineEl = document.getElementById("timeline");
+    timelineEl.innerHTML = "";
+
+    route.forEach((stop, index) => {
+      const prevStop = route[index - 1];
+      const nextStop = route[index + 1];
+
+      const topActive = prevStop ? (stop.stops && prevStop.stops) : false;
+      const bottomActive = nextStop ? (stop.stops && nextStop.stops) : false;
+
+      let durationText = "";
+      if (stop.stops) {
+        let nextIndex = index + 1;
+        while (nextIndex < route.length && !route[nextIndex].stops) {
+          nextIndex++;
+        }
+        if (nextIndex < route.length && route[nextIndex].stops) {
+          const currentMin = parseTimeToMinutes(stop.time);
+          const nextMin = parseTimeToMinutes(route[nextIndex].time);
+          const diff = nextMin - currentMin;
+          durationText = `⏱️ ${diff} min fins a ${route[nextIndex].station}`;
+        }
+      }
+
+      const item = document.createElement("div");
+      item.className = `timeline-item ${!stop.stops ? 'no-stop' : ''}`;
+
+      item.innerHTML = `
+        <div class="line-segment-top ${topActive ? 'line-active' : 'line-disabled'}"></div>
+        <div class="line-segment-bottom ${bottomActive ? 'line-active' : 'line-disabled'}"></div>
+        <div class="time">${stop.time || '--:--'}</div>
+        <div class="node"></div>
+        <div class="station-info">
+          <div class="station-name">
+            ${stop.station}
+            ${stop.transfer ? `<span class="transfer-badge">${stop.transfer}</span>` : ''}
+          </div>
+          ${stop.stops 
+            ? (durationText ? `<div class="duration-badge">${durationText}</div>` : '') 
+            : `<div class="no-stop-text">No s'atura</div>`}
+        </div>
+      `;
+
+      timelineEl.appendChild(item);
+    });
+  }
+
+  // Inicialització carregant la línia R16 per defecte
+  switchLine("R16");
+</script>
+
+</body>
+</html>

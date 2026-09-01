@@ -1,0 +1,54 @@
+{
+  "line": "R15",
+  "color": "#93806B",
+  "lightColor: "#f4f1ee",
+  "trains": [
+    {
+      "id": "15002",
+      "type": "Regional Exprés (Inici a Reus)",
+      "route": [
+        { "station": "Reus", "time": "05:36", "stops": true, "transfer": "[R14/RT1]" },
+        { "station": "Vila-seca", "time": "05:45", "stops": true, "transfer": "[R14/R16/RT1]" },
+        { "station": "Tarragona", "time": "05:56", "stops": true, "transfer": "[R16/R17/RT2]" },
+        { "station": "Altafulla - Tamarit", "time": "06:05", "stops": true, "transfer": null },
+        { "station": "Torredembarra", "time": "06:10", "stops": true, "transfer": null },
+        { "station": "Sant Vicenç de Calders", "time": "06:20", "stops": true, "transfer": "[R2 Sud/R4]" },
+        { "station": "Vilanova i la Geltrú", "time": "06:32", "stops": true, "transfer": "[R2 Sud]" },
+        { "station": "Barcelona - Sants", "time": "07:09", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+        { "station": "Barcelona - Passeig de Gràcia", "time": "07:14", "stops": true, "transfer": "[L2/L3/L4]" },
+        { "station": "Barcelona - Estació de França", "time": "07:24", "stops": true, "transfer": "[L4]" }
+      ]
+    },
+    {
+      "id": "30114",
+      "type": "Mitjana Distància (Des de Saragossa)",
+      "route": [
+        { "station": "Zaragoza - Delicias", "time": "06:23", "stops": true, "transfer": "[AVE/MD]" },
+        { "station": "Casp", "time": "08:00", "stops": true, "transfer": null },
+        { "station": "Fabara", "time": "08:16", "stops": true, "transfer": null },
+        { "station": "Nonaspe", "time": "08:24", "stops": true, "transfer": null },
+        { "station": "Faió - La Pobla de Massaluca", "time": "08:33", "stops": true, "transfer": null },
+        { "station": "Riba-roja d'Ebre", "time": "08:44", "stops": true, "transfer": null },
+        { "station": "Flix", "time": "08:53", "stops": true, "transfer": null },
+        { "station": "Ascó", "time": "09:02", "stops": true, "transfer": null },
+        { "station": "Móra la Nova", "time": "09:35", "stops": true, "transfer": null },
+        { "station": "Capçanes", "time": "09:50", "stops": true, "transfer": null },
+        { "station": "Marçà - Falset", "time": "10:02", "stops": true, "transfer": null },
+        { "station": "Pradell", "time": null, "stops": false, "transfer": null },
+        { "station": "Duesaigües - L'Argentera", "time": null, "stops": false, "transfer": null },
+        { "station": "Riudecanyes - Botarell", "time": null, "stops": false, "transfer": null },
+        { "station": "Les Borges del Camp", "time": "10:24", "stops": true, "transfer": null },
+        { "station": "Reus", "time": "10:36", "stops": true, "transfer": "[R14/RT1]" },
+        { "station": "Vila-seca", "time": "10:45", "stops": true, "transfer": "[R14/R16/RT1]" },
+        { "station": "Tarragona", "time": "10:56", "stops": true, "transfer": "[R16/R17/RT2]" },
+        { "station": "Altafulla - Tamarit", "time": "11:05", "stops": true, "transfer": null },
+        { "station": "Torredembarra", "time": "11:10", "stops": true, "transfer": null },
+        { "station": "Sant Vicenç de Calders", "time": "11:20", "stops": true, "transfer": "[R2 Sud/R4]" },
+        { "station": "Vilanova i la Geltrú", "time": "11:32", "stops": true, "transfer": "[R2 Sud]" },
+        { "station": "Barcelona - Sants", "time": "12:09", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+        { "station": "Barcelona - Passeig de Gràcia", "time": "12:14", "stops": true, "transfer": "[L2/L3/L4]" },
+        { "station": "Barcelona - Estació de França", "time": "12:24", "stops": true, "transfer": "[L4]" }
+      ]
+    }
+  ]
+}
