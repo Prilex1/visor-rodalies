@@ -2,29 +2,597 @@
   "line": "R16",
   "color": "#A90034",
   "lightColor": "#fbe6eb",
-  "trains": [
-    {
-      "id": "18122",
-      "type": "Regional Exprés",
-      "route": [
-        { "station": "Tortosa", "time": "09:11", "stops": true, "transfer": null },
-        { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
-        { "station": "L'Aldea - Amposta", "time": "09:23", "stops": true, "transfer": "[Intercity]" },
-        { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
-        { "station": "L'Ampolla - Perelló - Deltebre", "time": "09:32", "stops": true, "transfer": null },
-        { "station": "L'Ametlla de Mar", "time": "09:42", "stops": true, "transfer": null },
-        { "station": "L'Hospitalet de l'Infant", "time": "09:53", "stops": true, "transfer": null },
-        { "station": "Cambrils", "time": "10:05", "stops": true, "transfer": null },
-        { "station": "Vila-seca", "time": "10:15", "stops": true, "transfer": "[R14/R15/RT1]" },
-        { "station": "Tarragona", "time": "10:26", "stops": true, "transfer": "[R17/RT2]" },
-        { "station": "Altafulla - Tamarit", "time": "10:35", "stops": true, "transfer": null },
-        { "station": "Torredembarra", "time": "10:40", "stops": true, "transfer": null },
-        { "station": "Sant Vicenç de Calders", "time": "10:50", "stops": true, "transfer": "[R2 Sud/R4]" },
-        { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
-        { "station": "Barcelona - Sants", "time": "11:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
-        { "station": "Barcelona - Passeig de Gràcia", "time": "11:44", "stops": true, "transfer": "[L2/L3/L4]" },
-        { "station": "Barcelona - Estació de França", "time": "11:54", "stops": true, "transfer": "[L4]" }
+  "directions": {
+    "outbound": {
+      "name": "Barcelona ➔ Tortosa / Ulldecona",
+      "trains": [
+        {
+          "id": "30716",
+          "type": "Regional Express",
+          "route": [
+            { "station": "Tortosa", "time": "06:35", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "06:49", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "07:01", "stops": true, "transfer": null },
+            { "station": "Vinaròs", "time": "07:11", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18101",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "05:45", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "05:56", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "06:03", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "06:49", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "06:59", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "07:02", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "07:14", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "07:22", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "07:35", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "07:47", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "07:59", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "08:09", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": "08:16", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "08:23", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": "08:30", "stops": true, "transfer": null },
+            { "station": "Tortosa", "time": "08:37", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18103",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "07:15", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "07:26", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "07:33", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "08:19", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "08:29", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "08:32", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "08:44", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "08:52", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "09:05", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "09:17", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "09:29", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "09:39", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "09:50", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "Tortosa", "time": "10:07", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18053",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "09:15", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "09:26", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "09:33", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": "10:06", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "10:19", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "10:29", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "10:32", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "10:44", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "10:52", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "11:06", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "11:20", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "11:33", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "11:44", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "12:01", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "Tortosa", "time": "12:20", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "12:42", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "12:54", "stops": true, "transfer": null },
+            { "station": "Vinaròs", "time": "13:04", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "30722",
+          "type": "Regional Express",
+          "route": [
+            { "station": "Tortosa", "time": "13:35", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "13:50", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "14:03", "stops": true, "transfer": null },
+            { "station": "Vinaròs", "time": "14:14", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18105",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "11:15", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "11:26", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "11:33", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "12:19", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "12:29", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "12:32", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "12:44", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "12:52", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "13:05", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "13:17", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "13:29", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "13:39", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": "13:46", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "13:53", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": "14:00", "stops": true, "transfer": null },
+            { "station": "Tortosa", "time": "14:07", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18127",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "13:15", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "13:26", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "13:33", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "14:19", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "14:29", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "14:32", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "14:44", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "14:52", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "15:05", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "15:17", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "15:29", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "15:39", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "15:50", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "Tortosa", "time": "16:07", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18107",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "14:45", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "14:56", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "15:03", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "15:49", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "15:59", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "16:02", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "16:14", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "16:22", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "16:35", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "16:47", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "16:59", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "17:09", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": "17:16", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "17:23", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": "17:30", "stops": true, "transfer": null },
+            { "station": "Tortosa", "time": "17:37", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "30724",
+          "type": "Regional Express",
+          "route": [
+            { "station": "Tortosa", "time": "18:20", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "18:38", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "18:51", "stops": true, "transfer": null },
+            { "station": "Vinaròs", "time": "19:01", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18109",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "16:15", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "16:26", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "16:33", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "17:19", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "17:29", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "17:32", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "17:44", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "17:52", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "18:05", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "18:17", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "18:29", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "18:39", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "18:50", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "Tortosa", "time": "19:03", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18113",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "17:45", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "17:56", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "18:03", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "18:49", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "18:59", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "19:02", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "19:14", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "19:22", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "19:35", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "19:47", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "19:59", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "20:09", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "20:20", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "Tortosa", "time": "20:32", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "03816",
+          "type": "Avant",
+          "route": [
+            { "station": "Barcelona - Sants", "time": "17:50", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Camp de Tarragona", "time": "18:27", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "18:49", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "19:00", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "19:08", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "19:16", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "19:26", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "Tortosa", "time": "19:46", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18115",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "19:15", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "19:26", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "19:33", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "20:19", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "20:29", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "20:32", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "20:44", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "20:52", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "21:05", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "21:17", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "21:29", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "21:39", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": "21:46", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "21:53", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": "22:00", "stops": true, "transfer": null },
+            { "station": "Tortosa", "time": "22:20", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "22:37", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "22:52", "stops": true, "transfer": null },
+            { "station": "Vinaròs", "time": "23:03", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18117",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Barcelona - Estació de França", "time": "20:45", "stops": true, "transfer": "[L4]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "20:56", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Sants", "time": "21:03", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "21:49", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Torredembarra", "time": "21:59", "stops": true, "transfer": null },
+            { "station": "Altafulla - Tamarit", "time": "22:02", "stops": true, "transfer": null },
+            { "station": "Tarragona", "time": "22:14", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Vila-seca", "time": "22:22", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Cambrils", "time": "22:35", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "22:47", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "22:59", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "23:09", "stops": true, "transfer": null },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "23:20", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "Tortosa", "time": "23:32", "stops": true, "transfer": null }
+          ]
+        }
+      ]
+    },
+    "inbound": {
+      "name": "Tortosa / Ulldecona ➔ Barcelona",
+      "trains": [
+        {
+          "id": "18120",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "05:44", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "05:56", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "06:05", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "06:15", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "06:26", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "06:38", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "06:48", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "06:59", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "07:08", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "07:13", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "07:23", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "08:12", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "08:17", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "08:27", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "19868",
+          "type": "Avant",
+          "route": [
+            { "station": "Tortosa", "time": "06:00", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "06:11", "stops": true, "transfer": "[Intercity]" },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "06:19", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "06:28", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "06:39", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "06:49", "stops": true, "transfer": null },
+            { "station": "Camp de Tarragona", "time": "07:12", "stops": true, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "07:48", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" }
+          ]
+        },
+        {
+          "id": "18102",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Vinaròs", "time": "06:14", "stops": true, "transfer": null },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "06:28", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "06:43", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Tortosa", "time": "07:05", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": "07:11", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "07:19", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": "07:25", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "07:32", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "07:42", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "07:53", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "08:05", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "08:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "08:26", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "08:35", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "08:40", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "08:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "09:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "09:44", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "09:54", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "18122",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "09:11", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "09:23", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "09:32", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "09:42", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "09:53", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "10:05", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "10:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "10:26", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "10:35", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "10:40", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "10:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "11:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "11:44", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "11:54", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "18124",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "11:00", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": "11:06", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "11:19", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": "11:25", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "11:32", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "11:42", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "11:53", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "12:05", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "12:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "12:26", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "12:35", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "12:40", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "12:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "13:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "13:44", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "13:54", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "30720",
+          "type": "Regional Express",
+          "route": [
+            { "station": "Vinaròs", "time": "10:17", "stops": true, "transfer": null },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "10:28", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "10:42", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Tortosa", "time": "11:13", "stops": true, "transfer": null }
+          ]
+        },
+        { "id": "18126",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "13:11", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "13:23", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "13:32", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "13:42", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "13:53", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "14:05", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "14:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "14:26", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "14:35", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "14:40", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "14:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "15:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "15:44", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "15:54", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "18128",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "15:05", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": "15:11", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "15:19", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": "15:25", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "15:32", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "15:42", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "15:53", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "16:05", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "16:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "16:26", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "16:35", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "16:40", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "16:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "17:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "17:44", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "17:54", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "18130",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "16:41", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "16:53", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "17:02", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "17:12", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "17:23", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "17:35", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "17:45", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "17:56", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "18:05", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "18:10", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "18:20", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "19:09", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "19:14", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "19:24", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "30702",
+          "type": "Regional Express",
+          "route": [
+            { "station": "Vinaròs", "time": "16:23", "stops": true, "transfer": null },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "16:34", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "16:53", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Tortosa", "time": "17:19", "stops": true, "transfer": null }
+          ]
+        },
+        {
+          "id": "18132",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "18:11", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "18:23", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "18:32", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "18:42", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "18:53", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "19:05", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "19:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "19:26", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "19:35", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "19:40", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "19:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "20:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "20:44", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "20:54", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "18134",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Tortosa", "time": "19:35", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": "19:41", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "19:49", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": "19:55", "stops": true, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "20:02", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "20:12", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "20:23", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "20:35", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "20:45", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "20:56", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "21:05", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "21:10", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "21:20", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": null, "stops": false, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "22:09", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "22:14", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "22:24", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "18096",
+          "type": "Regional Exprés",
+          "route": [
+            { "station": "Vinaròs", "time": "19:54", "stops": true, "transfer": null },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "20:12", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "20:43", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Tortosa", "time": "21:02", "stops": true, "transfer": null },
+            { "station": "Camp-redó", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "21:14", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Camarles - Deltebre", "time": null, "stops": false, "transfer": null },
+            { "station": "L'Ampolla - Perelló - Deltebre", "time": "21:24", "stops": true, "transfer": null },
+            { "station": "L'Ametlla de Mar", "time": "21:36", "stops": true, "transfer": null },
+            { "station": "L'Hospitalet de l'Infant", "time": "21:49", "stops": true, "transfer": null },
+            { "station": "Cambrils", "time": "22:03", "stops": true, "transfer": null },
+            { "station": "Vila-seca", "time": "22:15", "stops": true, "transfer": "[R14/R15/RT1]" },
+            { "station": "Camp de Tarragona", "time": null, "stops": false, "transfer": null },
+            { "station": "Tarragona", "time": "22:26", "stops": true, "transfer": "[R16/R17/RT2]" },
+            { "station": "Altafulla - Tamarit", "time": "22:35", "stops": true, "transfer": null },
+            { "station": "Torredembarra", "time": "22:40", "stops": true, "transfer": null },
+            { "station": "Sant Vicenç de Calders", "time": "22:50", "stops": true, "transfer": "[R2 Sud/R4]" },
+            { "station": "Vilanova i la Geltrú", "time": "23:02", "stops": true, "transfer": null },
+            { "station": "Barcelona - Sants", "time": "23:39", "stops": true, "transfer": "[Alta Velocitat/Rodalies/L3/L5]" },
+            { "station": "Barcelona - Passeig de Gràcia", "time": "23:44", "stops": true, "transfer": "[L2/L3/L4]" },
+            { "station": "Barcelona - Estació de França", "time": "23:54", "stops": true, "transfer": "[L4]" }
+          ]
+        },
+        {
+          "id": "30718",
+          "type": "Regional Express",
+          "route": [
+            { "station": "Vinaròs", "time": "22:20", "stops": true, "transfer": null },
+            { "station": "Ulldecona - Alcanar - La Sénia", "time": "22:32", "stops": true, "transfer": null },
+            { "station": "L'Aldea - Amposta", "time": "22:47", "stops": true, "transfer": "[Intercity]" },
+            { "station": "Tortosa", "time": "23:09", "stops": true, "transfer": null }
+          ]
+        }
       ]
     }
-  ]
+  }
 }
