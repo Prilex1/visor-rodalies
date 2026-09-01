@@ -383,28 +383,43 @@ function loadSelectedTrain() {
 
   if (!train) return;
 
+  // Validació de seguretat per a la ruta
+  const route = Array.isArray(train.route) ? train.route : [];
+  
   document.getElementById('lineTitle').textContent = `Línia ${currentLineData.line || ''} - ${train.type || ''}`;
   document.getElementById('trainCode').textContent = `Tren ${train.id || ''}`;
   
-  const origin = train.route[0];
-  const destination = train.route[train.route.length - 1];
-  
-  document.getElementById('routeTitle').textContent = `${origin?.station || ''} ➔ ${destination?.station || ''}`;
-  document.getElementById('departureTime').textContent = `${origin?.time || '--:--'} h`;
-  document.getElementById('arrivalTime').textContent = `${destination?.time || '--:--'} h`;
+  if (route.length > 0) {
+    const origin = route[0];
+    const destination = route[route.length - 1];
+    
+    document.getElementById('routeTitle').textContent = `${origin?.station || 'Origen'} ➔ ${destination?.station || 'Destí'}`;
+    document.getElementById('departureTime').textContent = origin?.time ? `${origin.time} h` : '--:--';
+    document.getElementById('arrivalTime').textContent = destination?.time ? `${destination.time} h` : '--:--';
 
-  if (origin?.time && destination?.time) {
-    const startMin = parseTimeToMinutes(origin.time);
-    const endMin = parseTimeToMinutes(destination.time);
-    const diff = endMin - startMin;
-    const h = Math.floor(diff / 60);
-    const m = diff % 60;
-    document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
+    if (origin?.time && destination?.time) {
+      const startMin = parseTimeToMinutes(origin.time);
+      const endMin = parseTimeToMinutes(destination.time);
+      
+      if (startMin !== null && endMin !== null) {
+        const diff = endMin - startMin;
+        const h = Math.floor(diff / 60);
+        const m = diff % 60;
+        document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
+      } else {
+        document.getElementById('totalDuration').textContent = '--';
+      }
+    } else {
+      document.getElementById('totalDuration').textContent = '--';
+    }
   } else {
+    document.getElementById('routeTitle').textContent = 'Sense informació de recorregut';
+    document.getElementById('departureTime').textContent = '--:--';
+    document.getElementById('arrivalTime').textContent = '--:--';
     document.getElementById('totalDuration').textContent = '--';
   }
 
-  renderTimeline(train.route || []);
+  renderTimeline(route);
 }
   function loadSelectedTrain() {
     if (!currentLineData) return;
