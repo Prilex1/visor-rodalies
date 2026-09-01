@@ -318,34 +318,94 @@
   }
 
   async function switchLine(lineKey) {
-    document.querySelectorAll('.line-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.line === lineKey);
+  document.querySelectorAll('.line-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.line === lineKey);
+  });
+
+  try {
+    const response = await fetch(`./${lineKey}.json`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: No s'ha trobat el fitxer ${lineKey}.json`);
+    }
+
+    currentLineData = await response.json();
+
+    // Assigna colors per defecte si no estan al JSON
+    document.documentElement.style.setProperty('--line-color', currentLineData.color || '#A90034');
+    document.documentElement.style.setProperty('--line-light', currentLineData.lightColor || '#fbe6eb');
+
+    // Mètode ultra-segur per trobar la llista de trens
+    let trains = [];
+
+    if (Array.isArray(currentLineData.trains)) {
+      // Estructura simple: "trains": [...]
+      trains = currentLineData.trains;
+    } else if (currentLineData.directions) {
+      // Estructura per sentits: agafa "outbound" per defecte, o el primer sentit disponible
+      const outbound = currentLineData.directions.outbound?.trains;
+      const inbound = currentLineData.directions.inbound?.trains;
+      trains = outbound || inbound || [];
+    }
+
+    if (!Array.isArray(trains) || trains.length === 0) {
+      throw new Error("El fitxer JSON és vàlid però no s'ha trobat cap matriu de 'trains'.");
+    }
+
+    // Guardem l'array trobat per a les funcions de renderitzat
+    currentLineData._activeTrains = trains;
+
+    const trainSelect = document.getElementById('trainSelect');
+    trainSelect.innerHTML = "";
+
+    trains.forEach((train, idx) => {
+      const opt = document.createElement('option');
+      opt.value = idx;
+      const origin = train.route?.[0]?.station || 'Origen';
+      const destination = train.route?.[train.route.length - 1]?.station || 'Destí';
+      opt.textContent = `Tren ${train.id || idx + 1} - ${train.type || 'Regional'} (${origin} ➔ ${destination})`;
+      trainSelect.appendChild(opt);
     });
 
-    try {
-      // Càrrega del fitxer .json corresponent
-      const response = await fetch(`./${lineKey}.json`);
-      currentLineData = await response.json();
+    loadSelectedTrain();
+  } catch (error) {
+    console.error("Detall de l'error carregant el JSON:", error);
+    alert(`Error en carregar ${lineKey}.json: ${error.message}`);
+  }
+}
 
-      document.documentElement.style.setProperty('--line-color', currentLineData.color);
-      document.documentElement.style.setProperty('--line-light', currentLineData.lightColor);
+function loadSelectedTrain() {
+  if (!currentLineData) return;
+  
+  const trainIndex = document.getElementById('trainSelect').value || 0;
+  const trains = currentLineData._activeTrains || [];
+  const train = trains[trainIndex];
 
-      const trainSelect = document.getElementById('trainSelect');
-      trainSelect.innerHTML = "";
-      currentLineData.trains.forEach((train, idx) => {
-        const opt = document.createElement('option');
-        opt.value = idx;
-        opt.textContent = `Tren ${train.id} - ${train.type} (${train.route[0].station} ➔ ${train.route[train.route.length - 1].station})`;
-        trainSelect.appendChild(opt);
-      });
+  if (!train) return;
 
-      loadSelectedTrain();
-    } catch (error) {
-      console.error("Error carregant el fitxer JSON:", error);
-      alert(`No s'ha pogut carregar el fitxer ${lineKey}.json`);
-    }
+  document.getElementById('lineTitle').textContent = `Línia ${currentLineData.line || ''} - ${train.type || ''}`;
+  document.getElementById('trainCode').textContent = `Tren ${train.id || ''}`;
+  
+  const origin = train.route[0];
+  const destination = train.route[train.route.length - 1];
+  
+  document.getElementById('routeTitle').textContent = `${origin?.station || ''} ➔ ${destination?.station || ''}`;
+  document.getElementById('departureTime').textContent = `${origin?.time || '--:--'} h`;
+  document.getElementById('arrivalTime').textContent = `${destination?.time || '--:--'} h`;
+
+  if (origin?.time && destination?.time) {
+    const startMin = parseTimeToMinutes(origin.time);
+    const endMin = parseTimeToMinutes(destination.time);
+    const diff = endMin - startMin;
+    const h = Math.floor(diff / 60);
+    const m = diff % 60;
+    document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
+  } else {
+    document.getElementById('totalDuration').textContent = '--';
   }
 
+  renderTimeline(train.route || []);
+}
   function loadSelectedTrain() {
     if (!currentLineData) return;
     
