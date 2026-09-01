@@ -37,10 +37,11 @@
       width: 100%;
     }
 
+    /* Selector de Línies */
     .line-selector {
       display: flex;
       gap: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .line-btn {
@@ -65,6 +66,32 @@
       background: #93806B;
       color: white;
       border-color: #93806B;
+    }
+
+    /* Selector de Sentit (Anada / Tornada) */
+    .dir-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .dir-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .dir-btn.active {
+      background: var(--line-color);
+      color: white;
+      border-color: var(--line-color);
     }
 
     .train-card {
@@ -138,6 +165,7 @@
       outline: none;
     }
 
+    /* Termòmetre Vertical */
     .timeline {
       padding: 25px 20px;
       display: flex;
@@ -266,9 +294,16 @@
 <body>
 
 <div class="container">
+  <!-- Selector de Línia -->
   <div class="line-selector">
     <button class="line-btn active" data-line="R16" onclick="switchLine('R16')">Línia R16</button>
     <button class="line-btn" data-line="R15" onclick="switchLine('R15')">Línia R15</button>
+  </div>
+
+  <!-- Selector de Sentit -->
+  <div class="dir-selector" id="dirSelector">
+    <button class="dir-btn active" data-dir="outbound" id="btnOutbound" onclick="setDirection('outbound')">Anada</button>
+    <button class="dir-btn" data-dir="inbound" id="btnInbound" onclick="setDirection('inbound')">Tornada</button>
   </div>
 
   <div class="train-card">
@@ -303,13 +338,14 @@
     <div class="timeline" id="timeline"></div>
 
     <div class="info-footer">
-      ℹ️ Dades carregades des del fitxer .json de la línia.
+      ℹ️ Dades carregades dinàmicament des del fitxer JSON de la línia.
     </div>
   </div>
 </div>
 
 <script>
   let currentLineData = null;
+  let currentDirection = "outbound";
 
   function parseTimeToMinutes(timeStr) {
     if (!timeStr) return null;
@@ -318,138 +354,138 @@
   }
 
   async function switchLine(lineKey) {
-  document.querySelectorAll('.line-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.line === lineKey);
-  });
+    document.querySelectorAll('.line-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.line === lineKey);
+    });
 
-  try {
-    const response = await fetch(`./${lineKey}.json`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: No s'ha trobat el fitxer ${lineKey}.json`);
+    try {
+      const response = await fetch(`./${lineKey}.json`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: No s'ha trobat el fitxer ${lineKey}.json`);
+      }
+
+      currentLineData = await response.json();
+
+      document.documentElement.style.setProperty('--line-color', currentLineData.color || '#A90034');
+      document.documentElement.style.setProperty('--line-light', currentLineData.lightColor || '#fbe6eb');
+
+      updateDirectionButtons();
+      updateTrainList();
+    } catch (error) {
+      console.error("Error carregant el JSON:", error);
+      alert(`Error en carregar ${lineKey}.json: ${error.message}`);
     }
+  }
 
-    currentLineData = await response.json();
+  function setDirection(dir) {
+    currentDirection = dir;
+    document.querySelectorAll('.dir-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.dir === dir);
+    });
+    updateTrainList();
+  }
 
-    document.documentElement.style.setProperty('--line-color', currentLineData.color || '#A90034');
-    document.documentElement.style.setProperty('--line-light', currentLineData.lightColor || '#fbe6eb');
+  function updateDirectionButtons() {
+    if (currentLineData && currentLineData.directions) {
+      document.getElementById('btnOutbound').textContent = currentLineData.directions.outbound?.name || 'Anada';
+      document.getElementById('btnInbound').textContent = currentLineData.directions.inbound?.name || 'Tornada';
+    }
+  }
+
+  function updateTrainList() {
+    if (!currentLineData) return;
 
     let trains = [];
-
-    if (Array.isArray(currentLineData.trains)) {
+    if (currentLineData.directions) {
+      trains = currentLineData.directions[currentDirection]?.trains || [];
+    } else if (Array.isArray(currentLineData.trains)) {
       trains = currentLineData.trains;
-    } else if (currentLineData.directions) {
-      const outbound = currentLineData.directions.outbound?.trains;
-      const inbound = currentLineData.directions.inbound?.trains;
-      trains = (Array.isArray(outbound) ? outbound : []).concat(Array.isArray(inbound) ? inbound : []);
     }
-
-    if (trains.length === 0) {
-      throw new Error("El fitxer JSON no conté cap llista de trens vàlida.");
-    }
-
-    currentLineData._activeTrains = trains;
 
     const trainSelect = document.getElementById('trainSelect');
     trainSelect.innerHTML = "";
+
+    if (trains.length === 0) {
+      const opt = document.createElement('option');
+      opt.textContent = "No hi ha trens disponibles en aquest sentit";
+      trainSelect.appendChild(opt);
+      renderEmptyState();
+      return;
+    }
 
     trains.forEach((train, idx) => {
       const opt = document.createElement('option');
       opt.value = idx;
 
-      // Comprovació segura de la ruta
       const route = Array.isArray(train.route) ? train.route : [];
-      const origin = route.length > 0 && route[0]?.station ? route[0].station : 'Origen desconegut';
-      const destination = route.length > 0 && route[route.length - 1]?.station ? route[route.length - 1].station : 'Destí desconegut';
+      const activeStops = route.filter(s => s.stops && s.time !== null);
+      
+      const origin = activeStops.length > 0 ? activeStops[0].station : 'Origen';
+      const destination = activeStops.length > 0 ? activeStops[activeStops.length - 1].station : 'Destí';
 
       opt.textContent = `Tren ${train.id || idx + 1} - ${train.type || 'Regional'} (${origin} ➔ ${destination})`;
       trainSelect.appendChild(opt);
     });
 
     loadSelectedTrain();
-  } catch (error) {
-    console.error("Detall de l'error carregant el JSON:", error);
-    alert(`Error en carregar ${lineKey}.json: ${error.message}`);
-  }
-}
-function loadSelectedTrain() {
-  if (!currentLineData) return;
-  
-  const trainIndex = document.getElementById('trainSelect').value || 0;
-  
-  // Obtenim l'array de trens del sentit actiu o de la llista general
-  let trains = [];
-  if (currentLineData.directions) {
-    trains = currentLineData.directions[currentDirection]?.trains || [];
-  } else {
-    trains = currentLineData.trains || [];
   }
 
-  const train = trains[trainIndex];
-  if (!train) return;
-
-  const route = Array.isArray(train.route) ? train.route : [];
-  
-  document.getElementById('lineTitle').textContent = `Línia ${currentLineData.line || ''} - ${train.type || ''}`;
-  document.getElementById('trainCode').textContent = `Tren ${train.id || ''}`;
-  
-  // Cerquem la primera i darrera estació ON EL TREN REALMENT S'ATURA
-  const activeStops = route.filter(stop => stop.stops && stop.time !== null);
-  
-  if (activeStops.length > 0) {
-    const origin = activeStops[0];
-    const destination = activeStops[activeStops.length - 1];
-    
-    document.getElementById('routeTitle').textContent = `${origin.station} ➔ ${destination.station}`;
-    document.getElementById('departureTime').textContent = `${origin.time} h`;
-    document.getElementById('arrivalTime').textContent = `${destination.time} h`;
-
-    // Càlcul de la durada total del trajecte
-    const startMin = parseTimeToMinutes(origin.time);
-    const endMin = parseTimeToMinutes(destination.time);
-    
-    if (startMin !== null && endMin !== null) {
-      let diff = endMin - startMin;
-      if (diff < 0) diff += 1440; // Ajust per si el trajecte passa de mitjanit
-      const h = Math.floor(diff / 60);
-      const m = diff % 60;
-      document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
-    } else {
-      document.getElementById('totalDuration').textContent = '--';
-    }
-  } else {
-    document.getElementById('routeTitle').textContent = 'Sense parades comercials';
-    document.getElementById('departureTime').textContent = '--:--';
-    document.getElementById('arrivalTime').textContent = '--:--';
-    document.getElementById('totalDuration').textContent = '--';
-  }
-
-  renderTimeline(route);
-}
   function loadSelectedTrain() {
     if (!currentLineData) return;
     
     const trainIndex = document.getElementById('trainSelect').value || 0;
-    const train = currentLineData.trains[trainIndex];
-
-    document.getElementById('lineTitle').textContent = `Línia ${currentLineData.line} - ${train.type}`;
-    document.getElementById('trainCode').textContent = `Tren ${train.id}`;
     
-    const origin = train.route[0];
-    const destination = train.route[train.route.length - 1];
+    let trains = [];
+    if (currentLineData.directions) {
+      trains = currentLineData.directions[currentDirection]?.trains || [];
+    } else {
+      trains = currentLineData.trains || [];
+    }
+
+    const train = trains[trainIndex];
+    if (!train) return;
+
+    const route = Array.isArray(train.route) ? train.route : [];
     
-    document.getElementById('routeTitle').textContent = `${origin.station} ➔ ${destination.station}`;
-    document.getElementById('departureTime').textContent = `${origin.time} h`;
-    document.getElementById('arrivalTime').textContent = `${destination.time} h`;
+    document.getElementById('lineTitle').textContent = `Línia ${currentLineData.line || ''} - ${train.type || ''}`;
+    document.getElementById('trainCode').textContent = `Tren ${train.id || ''}`;
+    
+    const activeStops = route.filter(stop => stop.stops && stop.time !== null);
+    
+    if (activeStops.length > 0) {
+      const origin = activeStops[0];
+      const destination = activeStops[activeStops.length - 1];
+      
+      document.getElementById('routeTitle').textContent = `${origin.station} ➔ ${destination.station}`;
+      document.getElementById('departureTime').textContent = `${origin.time} h`;
+      document.getElementById('arrivalTime').textContent = `${destination.time} h`;
 
-    const startMin = parseTimeToMinutes(origin.time);
-    const endMin = parseTimeToMinutes(destination.time);
-    const diff = endMin - startMin;
-    const h = Math.floor(diff / 60);
-    const m = diff % 60;
-    document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
+      const startMin = parseTimeToMinutes(origin.time);
+      const endMin = parseTimeToMinutes(destination.time);
+      
+      if (startMin !== null && endMin !== null) {
+        let diff = endMin - startMin;
+        if (diff < 0) diff += 1440; // Ajust per canvi de dia
+        const h = Math.floor(diff / 60);
+        const m = diff % 60;
+        document.getElementById('totalDuration').textContent = `${h}h ${m}m`;
+      } else {
+        document.getElementById('totalDuration').textContent = '--';
+      }
+    } else {
+      renderEmptyState();
+    }
 
-    renderTimeline(train.route);
+    renderTimeline(route);
+  }
+
+  function renderEmptyState() {
+    document.getElementById('routeTitle').textContent = '-- ➔ --';
+    document.getElementById('departureTime').textContent = '--:--';
+    document.getElementById('arrivalTime').textContent = '--:--';
+    document.getElementById('totalDuration').textContent = '--';
+    document.getElementById('timeline').innerHTML = '';
   }
 
   function renderTimeline(route) {
@@ -464,16 +500,19 @@ function loadSelectedTrain() {
       const bottomActive = nextStop ? (stop.stops && nextStop.stops) : false;
 
       let durationText = "";
-      if (stop.stops) {
+      if (stop.stops && stop.time) {
         let nextIndex = index + 1;
-        while (nextIndex < route.length && !route[nextIndex].stops) {
+        while (nextIndex < route.length && (!route[nextIndex].stops || !route[nextIndex].time)) {
           nextIndex++;
         }
-        if (nextIndex < route.length && route[nextIndex].stops) {
+        if (nextIndex < route.length && route[nextIndex].stops && route[nextIndex].time) {
           const currentMin = parseTimeToMinutes(stop.time);
           const nextMin = parseTimeToMinutes(route[nextIndex].time);
-          const diff = nextMin - currentMin;
-          durationText = `⏱️ ${diff} min fins a ${route[nextIndex].station}`;
+          if (currentMin !== null && nextMin !== null) {
+            let diff = nextMin - currentMin;
+            if (diff < 0) diff += 1440;
+            durationText = `⏱️ ${diff} min fins a ${route[nextIndex].station}`;
+          }
         }
       }
 
@@ -500,7 +539,7 @@ function loadSelectedTrain() {
     });
   }
 
-  // Inicialització carregant la línia R16 per defecte
+  // Inicialització
   switchLine("R16");
 </script>
 
